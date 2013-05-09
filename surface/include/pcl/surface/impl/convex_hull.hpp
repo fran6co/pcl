@@ -130,16 +130,16 @@ pcl::ConvexHull<PointInT>::performReconstruction2D (PointCloud &hull, std::vecto
 
   // True if qhull should free points in qh_freeqhull() or reallocation
   boolT ismalloc = True;
+  // error messages from qhull code
+  FILE *errfile = tmpfile();
   // output from qh_produce_output(), use NULL to skip qh_produce_output()
   FILE *outfile = NULL;
 
   if (compute_area_)
-    outfile = stderr;
+    outfile = errfile;
 
   // option flags for qhull, see qh_opt.htm
   const char* flags = qhull_flags.c_str ();
-  // error messages from qhull code
-  FILE *errfile = stderr;
 
   // Array of coordinates for each point
   coordT *points = reinterpret_cast<coordT*> (calloc (indices_->size () * dimension, sizeof (coordT)));
@@ -191,6 +191,8 @@ pcl::ConvexHull<PointInT>::performReconstruction2D (PointCloud &hull, std::vecto
     qh_freeqhull (!qh_ALL);
     int curlong, totlong;
     qh_memfreeshort (&curlong, &totlong);
+
+    fclose(errfile);
 
     return;
   }
@@ -261,6 +263,10 @@ pcl::ConvexHull<PointInT>::performReconstruction2D (PointCloud &hull, std::vecto
   qh_freeqhull (!qh_ALL);
   int curlong, totlong;
   qh_memfreeshort (&curlong, &totlong);
+  
+  if (outfile != NULL) {
+    fclose(outfile);
+  }
 
   hull.width = static_cast<uint32_t> (hull.points.size ());
   hull.height = 1;
@@ -280,16 +286,16 @@ pcl::ConvexHull<PointInT>::performReconstruction3D (
 
   // True if qhull should free points in qh_freeqhull() or reallocation
   boolT ismalloc = True;
+  // error messages from qhull code
+  FILE *errfile = tmpfile();
   // output from qh_produce_output(), use NULL to skip qh_produce_output()
   FILE *outfile = NULL;
 
   if (compute_area_)
-    outfile = stderr;
+    outfile = errfile;
 
   // option flags for qhull, see qh_opt.htm
   const char *flags = qhull_flags.c_str ();
-  // error messages from qhull code
-  FILE *errfile = stderr;
 
   // Array of coordinates for each point
   coordT *points = reinterpret_cast<coordT*> (calloc (indices_->size () * dimension, sizeof (coordT)));
@@ -317,6 +323,8 @@ pcl::ConvexHull<PointInT>::performReconstruction3D (
     qh_freeqhull (!qh_ALL);
     int curlong, totlong;
     qh_memfreeshort (&curlong, &totlong);
+    
+    fclose(errfile);
 
     return;
   }
@@ -378,6 +386,10 @@ pcl::ConvexHull<PointInT>::performReconstruction3D (
   qh_freeqhull (!qh_ALL);
   int curlong, totlong;
   qh_memfreeshort (&curlong, &totlong);
+
+  if (outfile != NULL) {
+    fclose(outfile);
+  }
 
   hull.width = static_cast<uint32_t> (hull.points.size ());
   hull.height = 1;
