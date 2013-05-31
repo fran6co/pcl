@@ -130,11 +130,6 @@ pcl::ConvexHull<PointInT>::performReconstruction2D (PointCloud &hull, std::vecto
 
   // True if qhull should free points in qh_freeqhull() or reallocation
   boolT ismalloc = True;
-  // output from qh_produce_output(), use NULL to skip qh_produce_output()
-  FILE *outfile = NULL;
-
-  if (compute_area_)
-    outfile = stderr;
 
   // option flags for qhull, see qh_opt.htm
   const char* flags = qhull_flags.c_str ();
@@ -177,7 +172,7 @@ pcl::ConvexHull<PointInT>::performReconstruction2D (PointCloud &hull, std::vecto
   }
    
   // Compute convex hull
-  int exitcode = qh_new_qhull (dimension, static_cast<int> (indices_->size ()), points, ismalloc, const_cast<char*> (flags), outfile, errfile);
+  int exitcode = qh_new_qhull (dimension, static_cast<int> (indices_->size ()), points, ismalloc, const_cast<char*> (flags), NULL, errfile);
     
   // 0 if no error from qhull or it doesn't find any vertices
   if (exitcode != 0 || qh num_vertices == 0)
@@ -280,11 +275,6 @@ pcl::ConvexHull<PointInT>::performReconstruction3D (
 
   // True if qhull should free points in qh_freeqhull() or reallocation
   boolT ismalloc = True;
-  // output from qh_produce_output(), use NULL to skip qh_produce_output()
-  FILE *outfile = NULL;
-
-  if (compute_area_)
-    outfile = stderr;
 
   // option flags for qhull, see qh_opt.htm
   const char *flags = qhull_flags.c_str ();
@@ -303,7 +293,7 @@ pcl::ConvexHull<PointInT>::performReconstruction3D (
   }
 
   // Compute convex hull
-  int exitcode = qh_new_qhull (dimension, static_cast<int> (indices_->size ()), points, ismalloc, const_cast<char*> (flags), outfile, errfile);
+  int exitcode = qh_new_qhull (dimension, static_cast<int> (indices_->size ()), points, ismalloc, const_cast<char*> (flags), NULL, errfile);
 
   // 0 if no error from qhull
   if (exitcode != 0)
