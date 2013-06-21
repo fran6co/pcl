@@ -4,7 +4,11 @@ set(SUBSYS_DEPS common kdtree octree)
 
 set(build TRUE)
 PCL_SUBSYS_OPTION(build ${SUBSYS_NAME} ${SUBSYS_DESC} ON)
+if(FLANN_FOUND)
 PCL_SUBSYS_DEPEND(build ${SUBSYS_NAME} DEPS ${SUBSYS_DEPS} EXT_DEPS flann)
+else(FLANN_FOUND)
+PCL_SUBSYS_DEPEND(build ${SUBSYS_NAME} DEPS ${SUBSYS_DEPS})
+endif(FLANN_FOUND)
 
 PCL_ADD_DOC(${SUBSYS_NAME})
 
@@ -23,23 +27,32 @@ if(build)
         include/pcl/${SUBSYS_NAME}/brute_force.h
         include/pcl/${SUBSYS_NAME}/organized.h
         include/pcl/${SUBSYS_NAME}/octree.h
-        include/pcl/${SUBSYS_NAME}/flann_search.h
         include/pcl/${SUBSYS_NAME}/pcl_search.h
         )
 
     set(impl_incs
         include/pcl/${SUBSYS_NAME}/impl/search.hpp
 		include/pcl/${SUBSYS_NAME}/impl/kdtree.hpp
-        include/pcl/${SUBSYS_NAME}/impl/flann_search.hpp
         include/pcl/${SUBSYS_NAME}/impl/brute_force.hpp
         include/pcl/${SUBSYS_NAME}/impl/organized.hpp
         )
 
+    if(FLANN_FOUND)
+        set(incs ${incs} include/pcl/${SUBSYS_NAME}/flann_search.h)
+        set(impl_incs ${impl_incs} include/pcl/${SUBSYS_NAME}/impl/flann_search.hpp)
+    endif(FLANN_FOUND)
+
     set(LIB_NAME pcl_${SUBSYS_NAME})
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
     PCL_ADD_LIBRARY(${LIB_NAME} ${SUBSYS_NAME} ${srcs} ${incs} ${impl_incs})
+
+    if(FLANN_FOUND)
     target_link_libraries(${LIB_NAME} pcl_common ${FLANN_LIBRARIES} pcl_octree pcl_kdtree)
     list(APPEND EXT_DEPS flann)
+    else(FLANN_FOUND)
+    target_link_libraries(${LIB_NAME} pcl_common pcl_octree pcl_kdtree)
+    endif(FLANN_FOUND)
+
     PCL_MAKE_PKGCONFIG(${LIB_NAME} ${SUBSYS_NAME} "${SUBSYS_DESC}" "${SUBSYS_DEPS}" "" "" "" "")
 
     PCL_ADD_INCLUDES(${SUBSYS_NAME} ${SUBSYS_NAME} ${incs})
