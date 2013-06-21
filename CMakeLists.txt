@@ -228,8 +228,10 @@ add_definitions(-DEIGEN_USE_NEW_STDVECTOR
 if(NOT PCL_SHARED_LIBS OR (WIN32 AND NOT MINGW))
   set(FLANN_USE_STATIC ON)
 endif(NOT PCL_SHARED_LIBS OR (WIN32 AND NOT MINGW))
-find_package(FLANN 1.7.0 REQUIRED)
+find_package(FLANN 1.7.0)
+if(FLANN_FOUND)
 include_directories(${FLANN_INCLUDE_DIRS})
+endif(FLANN_FOUND)
 
 # libusb-1.0
 find_package(libusb-1.0)
