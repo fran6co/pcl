@@ -268,7 +268,7 @@ macro(find_VTK)
   endif(PCL_ALL_IN_ONE_INSTALLER)
   find_package(VTK ${QUIET_})
   if (VTK_FOUND AND NOT ANDROID)
-    set(VTK_LIBRARIES vtkCommon vtkRendering vtkHybrid vtkCharts)
+    set(VTK_LIBRARIES "@VTK_LIBRARIES@")
   endif(VTK_FOUND AND NOT ANDROID)
 endmacro(find_VTK)
 
