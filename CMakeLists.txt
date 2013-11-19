@@ -294,16 +294,10 @@ find_package(Qhull)
 # Cuda
 include(${PCL_SOURCE_DIR}/cmake/pcl_find_cuda.cmake)
 
-# Find Qt5
-include(cmake/pcl_find_qt5.cmake)
-
-# Find QT4
-if(NOT QT5_FOUND)
-    find_package(Qt4)
-    if (QT4_FOUND)
-      include(${QT_USE_FILE})
-    endif (QT4_FOUND)
-endif()
+find_package(Qt4)
+if (QT4_FOUND)
+  include(${QT_USE_FILE})
+endif (QT4_FOUND)
 
 # Find VTK
 find_package(VTK)
@@ -312,8 +306,8 @@ if(VTK_FOUND)
   if (PCL_SHARED_LIBS OR 
       (NOT (PCL_SHARED_LIBS) AND NOT (VTK_BUILD_SHARED_LIBS)))
     set(VTK_FOUND TRUE)
+    find_package (QVTK)
     if (${VTK_MAJOR_VERSION} VERSION_LESS "6.0")
-      find_package (QVTK)
       message(STATUS "VTK found (include: ${VTK_INCLUDE_DIRS}, lib: ${VTK_LIBRARY_DIRS}")
       link_directories(${VTK_LIBRARY_DIRS})
     else(${VTK_MAJOR_VERSION} VERSION_LESS "6.0")
