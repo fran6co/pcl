@@ -64,7 +64,7 @@ pcl::VTKUtils::convertToVTK (const pcl::PolygonMesh &triangles, vtkSmartPointer<
   mesh2vtk (triangles, vtk_polygons);
 
   vtkSmartPointer<vtkTriangleFilter> vtk_triangles = vtkTriangleFilter::New ();
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   vtk_triangles->SetInput (vtk_polygons);
 #else
   vtk_triangles->SetInputData(vtk_polygons);

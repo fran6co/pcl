@@ -79,7 +79,7 @@ pcl::MeshSubdivisionVTK::performProcessing (pcl::PolygonMesh &output)
       break;
   }
 
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   vtk_subdivision_filter->SetInput (vtk_polygons_);
 #else
   vtk_subdivision_filter->SetInputData (vtk_polygons_);

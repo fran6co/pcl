@@ -82,7 +82,7 @@ main (int argc, char** argv)
 
   // Convert to VTK and save
   vtkSmartPointer<vtkPolyDataWriter> writer = vtkSmartPointer<vtkPolyDataWriter>::New ();
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   writer->SetInput (polydata);
 #else
   writer->SetInputData (polydata);

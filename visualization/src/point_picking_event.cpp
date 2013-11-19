@@ -193,7 +193,7 @@ pcl::visualization::PointPickingCallback::performAreaPick (vtkRenderWindowIntera
     vtkSmartPointer<vtkExtractGeometry> extract_geometry = vtkSmartPointer<vtkExtractGeometry>::New ();
     extract_geometry->SetImplicitFunction (frustum);
 
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
     extract_geometry->SetInput (picker->GetDataSet ());
 #else
     extract_geometry->SetInputData (picker->GetDataSet ());

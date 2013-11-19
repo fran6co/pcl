@@ -203,7 +203,7 @@ main (int argc, char **argv)
 
   //make sure that the polygons are triangles!
   vtkSmartPointer<vtkTriangleFilter> triangleFilter = vtkSmartPointer<vtkTriangleFilter>::New ();
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   triangleFilter->SetInput (polydata1);
 #else
   triangleFilter->SetInputData (polydata1);

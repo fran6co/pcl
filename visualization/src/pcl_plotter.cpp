@@ -121,7 +121,7 @@ pcl::visualization::PCLPlotter::addPlotData (
   //adding to chart
   //vtkPlot *line = chart_->AddPlot(vtkChart::LINE);
   vtkPlot *line = chart_->AddPlot (type);
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   line->SetInput (table, 0, 1);
 #else
   line->SetInputData (table, 0, 1);

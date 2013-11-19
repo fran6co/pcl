@@ -123,7 +123,7 @@ pcl::visualization::ImageViewer::ImageViewer (const std::string& window_title)
 
   vtkSmartPointer<vtkImageData> empty_image = vtkSmartPointer<vtkImageData>::New ();
   vtkSmartPointer<vtkImageSliceMapper> map = vtkSmartPointer<vtkImageSliceMapper>::New ();
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   map->SetInput (empty_image);
 #else
   map->SetInputData (empty_image);
@@ -190,7 +190,7 @@ pcl::visualization::ImageViewer::addRGBImage (
 
   vtkSmartPointer<vtkImageData> image = vtkSmartPointer<vtkImageData>::New ();
   image->SetExtent (0, width - 1, 0, height - 1, 0, 0);
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   image->SetScalarTypeToUnsignedChar ();
   image->SetNumberOfScalarComponents (3);
   image->AllocateScalars ();
@@ -248,7 +248,7 @@ pcl::visualization::ImageViewer::addMonoImage (
 
   vtkSmartPointer<vtkImageData> image = vtkSmartPointer<vtkImageData>::New ();
   image->SetExtent (0, width - 1, 0, height - 1, 0, 0);
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   image->SetScalarTypeToUnsignedChar ();
   image->SetNumberOfScalarComponents (1);
   image->AllocateScalars ();

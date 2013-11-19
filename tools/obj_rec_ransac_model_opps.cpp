@@ -216,7 +216,7 @@ void showModelOpps (PCLVisualizer& viz, const ModelLibrary::HashTable& hash_tabl
   // Save the normals
   vtk_opps->GetPointData ()->SetNormals (vtk_normals);
   // Setup the hedge hog object
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   vtk_hedge_hog->SetInput (vtk_opps);
 #else
   vtk_hedge_hog->SetInputData (vtk_opps);

@@ -137,7 +137,7 @@ pcl::modeler::NormalsActorItem::initImpl()
   createNormalLines();
 
   vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   mapper->SetInput(poly_data_);
 #else
   mapper->SetInputData(poly_data_);

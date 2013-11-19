@@ -61,7 +61,7 @@ pcl::apps::RenderViewsTesselatedSphere::generateViews() {
 
   vtkSmartPointer<vtkTransformFilter> trans_filter_center = vtkSmartPointer<vtkTransformFilter>::New ();
   trans_filter_center->SetTransform (trans_center);
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   trans_filter_center->SetInput (polydata_);
 #else
     trans_filter_center->SetInputData (polydata_);

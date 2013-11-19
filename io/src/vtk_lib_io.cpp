@@ -179,7 +179,7 @@ pcl::io::savePolygonFileVTK (const std::string &file_name, const pcl::PolygonMes
   pcl::io::mesh2vtk (mesh, poly_data);
 
   vtkSmartPointer<vtkPolyDataWriter> poly_writer = vtkSmartPointer<vtkPolyDataWriter>::New ();
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   poly_writer->SetInput (poly_data);
 #else
   poly_writer->SetInputData (poly_data);
@@ -199,7 +199,7 @@ pcl::io::savePolygonFilePLY (const std::string &file_name, const pcl::PolygonMes
   pcl::io::mesh2vtk (mesh, poly_data);
 
   vtkSmartPointer<vtkPLYWriter> poly_writer = vtkSmartPointer<vtkPLYWriter>::New ();
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   poly_writer->SetInput (poly_data);
 #else
   poly_writer->SetInputData (poly_data);
@@ -219,7 +219,7 @@ pcl::io::savePolygonFileSTL (const std::string &file_name, const pcl::PolygonMes
 
   pcl::io::mesh2vtk (mesh, poly_data);
   vtkSmartPointer<vtkSTLWriter> poly_writer = vtkSmartPointer<vtkSTLWriter>::New ();
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   poly_writer->SetInput (poly_data);
 #else
   poly_writer->SetInputData (poly_data);
@@ -495,7 +495,7 @@ pcl::io::saveRangeImagePlanarFilePNG (
 {
   vtkSmartPointer<vtkImageData> image = vtkSmartPointer<vtkImageData>::New();
   image->SetDimensions(range_image.width, range_image.height, 1);
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   image->SetNumberOfScalarComponents(1);
   image->SetScalarTypeToFloat();
   image->AllocateScalars();
@@ -520,7 +520,7 @@ pcl::io::saveRangeImagePlanarFilePNG (
 
   vtkSmartPointer<vtkImageShiftScale> shiftScaleFilter = vtkSmartPointer<vtkImageShiftScale>::New();
   shiftScaleFilter->SetOutputScalarTypeToUnsignedChar();
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   shiftScaleFilter->SetInputConnection(image->GetProducerPort());
 #else
   shiftScaleFilter->SetInputData(image);

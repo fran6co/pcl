@@ -436,7 +436,7 @@ pcl::visualization::ImageViewer::showCorrespondences (
   
   vtkSmartPointer<vtkImageData> image = vtkSmartPointer<vtkImageData>::New ();
   image->SetDimensions (source_img.width + target_img.width, std::max (source_img.height, target_img.height), 1);
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   image->SetScalarTypeToUnsignedChar ();
   image->SetNumberOfScalarComponents (3);
   image->AllocateScalars ();

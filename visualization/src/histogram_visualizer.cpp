@@ -261,7 +261,7 @@ pcl::visualization::PCLHistogramVisualizer::reCreateActor (
     const vtkSmartPointer<vtkDoubleArray> &xy_array, RenWinInteract* renwinupd, const int hsize)
 {
   renwinupd->ren_->RemoveActor2D (renwinupd->xy_plot_);
-#if VTK_MAJOR_VERSION <= 5
+#if VTK_MAJOR_VERSION < 6
   renwinupd->xy_plot_->RemoveAllInputs ();
 #else
   renwinupd->xy_plot_->RemoveAllDataSetInputConnections ();
