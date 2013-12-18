@@ -3260,7 +3260,11 @@ pcl::visualization::PCLVisualizer::addTextureMesh (const pcl::TextureMesh &mesh,
     polydata->GetPointData()->SetScalars(colors);
 
   vtkSmartPointer<vtkPolyDataMapper> mapper = vtkSmartPointer<vtkPolyDataMapper>::New ();
-  mapper->SetInput (polydata);
+  #if VTK_MAJOR_VERSION < 6
+    mapper->SetInput (polydata);
+  #else
+    mapper->SetInputData (polydata);
+  #endif
 
   vtkSmartPointer<vtkLODActor> actor = vtkSmartPointer<vtkLODActor>::New ();
   vtkOpenGLHardwareSupport* hardware = vtkOpenGLRenderWindow::SafeDownCast (win_)->GetHardwareSupport ();
